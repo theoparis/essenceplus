@@ -44,7 +44,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
-          distribution: adopt
+          distribution: temurin
 
       - name: 🐘 Set up Gradle
         uses: gradle/gradle-build-action@v2
@@ -60,5 +60,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.release.outputs.tag_name }}
-          files: '**/build/libs/*'
+          files: "**/build/libs/*"
           token: ${{ secrets.GITHUB_TOKEN }}
