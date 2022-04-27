@@ -108,17 +108,11 @@ who cannot update due to strict policies may benefit. To track an older major
 version, look for its related branch that follows the
 pattern `+([0-9])?(.{+([0-9]),x}).x`, e.g. `2.x`.
 
-## Continuous Integration & Deployment (CI/CD)
-
-This project uses [GitHub Actions][github:actions] in tandem
-with [release-please][release-please] to automate building, testing and
-deploying new versions of the codebase.
-
 ### How it works?
 
 When new commits make their way into one of the release branches outlined in
 the [Branching Strategy](#branching-strategy), a
-GitHub [workflow][workflow:release] is triggered. This workflow in turn
+CircleCI build is triggered. This workflow in turn
 executes [release-please][release-please].
 
 ## Code Style
@@ -133,13 +127,21 @@ There are a collection of [Checkstyle tools][checkstyle:tools] available to add
 this functionality to your IDE.
 
 [changelog]: ../CHANGELOG.md
+
 [checkstyle]: https://github.com/checkstyle/checkstyle
+
 [checkstyle:config]: ../.checkstyle.xml
+
 [checkstyle:tools]: https://checkstyle.org/index.html#Related_Tools
+
 [codeofconduct]: CODE_OF_CONDUCT.md
+
 [conventionalcommits]: https://www.conventionalcommits.org/
+
 [github:actions]: https://github.com/features/actions
+
 [github:flow]: https://guides.github.com/introduction/flow
+
 [release-please]: https://github.com/googleapis/release-please
+
 [semver]: https://semver.org/
-[workflow:release]: workflows/release.yml
