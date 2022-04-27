@@ -12,8 +12,10 @@ hs_err_pid*
 .idea/
 *.iml
 .settings/
+.classpath
 *.launch
 .project
 .vscode/
 .history/
 *.code-workspace
+bin/
