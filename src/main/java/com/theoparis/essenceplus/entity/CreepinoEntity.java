@@ -1,9 +1,12 @@
 package com.theoparis.essenceplus.entity;
 
+import com.theoparis.essenceplus.EssencePlus;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -28,6 +31,11 @@ public class CreepinoEntity extends PathAwareEntity implements IAnimatable {
 	@Override
 	public void registerControllers(AnimationData animationData) {
 		animationData.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
+	}
+
+	@Override
+	public SoundEvent getAmbientSound() {
+		return EssencePlus.CREEPINO_SCREEN_SOUND;
 	}
 
 	@Override

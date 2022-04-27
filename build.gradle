@@ -1,6 +1,5 @@
 plugins {
 	id "java"
-	id "com.diffplug.spotless" version "6.5.0"
 	id "maven-publish"
 	id "com.modrinth.minotaur" version "2.1.1"
 	id "fabric-loom" version "0.11-SNAPSHOT"
@@ -69,22 +68,6 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand(["id": project.mod_id, "name": project.mod_name, "version": project.version])
 	}
-}
-
-// Perform linting using Spotless
-spotless {
-ratchetFrom "origin/main"
-
-format "misc", {
-	target "*.gradle", "*.md", ".gitignore"
-
-	trimTrailingWhitespace()
-	indentWithTabs()
-	endWithNewline()
-}
-java {
-	googleJavaFormat("1.8").aosp().reflowLongStrings()
-}
 }
 
 // Define how artifacts are published to Modrinth (https://modrinth.com)
