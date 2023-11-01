@@ -1,46 +1,46 @@
 package com.theoparis.essenceplus.entity;
 
 import com.theoparis.essenceplus.EssencePlus;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class CreepinoEntity extends PathAwareEntity implements IAnimatable {
-	private final AnimationFactory factory = new AnimationFactory(this);
+public class CreepinoEntity extends PathAwareEntity implements GeoEntity {
+	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-	private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-		event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.creepino.walk", true));
-		return PlayState.CONTINUE;
-	}
+	private static final RawAnimation WALK_ANIM = RawAnimation.begin().thenPlay("animation.creepino.walk");
 
 	public CreepinoEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
 	}
 
 	@Override
-	public void registerControllers(AnimationData animationData) {
-		animationData.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
+	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+		controllers.add(
+			// Add our flying animation controller
+			new AnimationController<>(
+				this,
+				10,
+				state -> state.setAndContinue(WALK_ANIM)));
+	}
+
+	@Override
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
+		return this.cache;
 	}
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		return EssencePlus.CREEPINO_SCREEN_SOUND;
-	}
-
-	@Override
-	public AnimationFactory getFactory() {
-		return this.factory;
+		return EssencePlus.CREEPINO_SCREECH_SOUND;
 	}
 
 	@Override
