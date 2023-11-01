@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: gradle:jdk18-alpine
+      - image: docker.io/gradle:jdk21-alpine
     steps:
       - checkout
       - run: gradle build
